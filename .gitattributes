@@ -8,3 +8,4 @@
 build-webserver.sh text eol=lf
 build-dbserver.sh text eol=lf
 build-batchserver.sh text eol=lf
+setup-database.sql text eol=lf
