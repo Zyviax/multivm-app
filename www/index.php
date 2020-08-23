@@ -80,7 +80,8 @@
                 echo "<br>";
                 echo $old_time." ".$new_time;
 
-                
+                //$server = "192.168.2.13";
+
             }
         ?>
     </body>
