@@ -8,11 +8,14 @@
 Vagrant.configure("2") do |config|
   
   # Sets the box to use.
-  config.vm.box = "ubuntu/xenial64"
+  # config.vm.box = "ubuntu/trusty64"
 
   # Sets up webserver VM.
   config.vm.define "webserver" do |webserver|
     webserver.vm.hostname = "webserver"
+
+    # Sets the box to use.
+    webserver.vm.box = "ubuntu/xenial64"
 
     # Set up port forwarding for the host connection, so the host can connect via localhost.
     webserver.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
@@ -31,6 +34,9 @@ Vagrant.configure("2") do |config|
   config.vm.define "dbserver" do |dbserver|
     dbserver.vm.hostname = "dbserver"
 
+    # Sets the box to use.
+    dbserver.vm.box = "ubuntu/xenial64"
+
     # Add VM to the private network
     dbserver.vm.network "private_network", ip: "192.168.2.12"
 
@@ -42,17 +48,20 @@ Vagrant.configure("2") do |config|
   end
 
   # Sets up batching querying server
-  config.vm.define "batchserver" do |batchserver|
-    batchserver.vm.hostname = "batchserver"
+  config.vm.define "pdfserver" do |pdfserver|
+    pdfserver.vm.hostname = "pdfserver"
+
+    # Sets the box to use.
+    pdfserver.vm.box = "ubuntu/trusty64"
 
     # Add VM to the private network
-    batchserver.vm.network "private_network", ip: "192.168.2.13"
+    pdfserver.vm.network "private_network", ip: "192.168.2.13"
 
     # Sets up the vagrant shared folder.
-    batchserver.vm.synced_folder ".", "/vagrant", owner: "vagrant", group: "vagrant", mount_options: ["dmode=775,fmode=777"]
+    pdfserver.vm.synced_folder ".", "/vagrant", owner: "vagrant", group: "vagrant", mount_options: ["dmode=775,fmode=777"]
 
     # Provisisions the VM on startup.
-    batchserver.vm.provision "shell", path: "build-batchserver.sh"
+    pdfserver.vm.provision "shell", path: "build-pdfserver.sh"
   end
 
 end
