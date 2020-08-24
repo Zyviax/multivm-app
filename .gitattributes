@@ -6,8 +6,10 @@
 # Windows line endings.
 
 build-webserver.sh text eol=lf
+build-webserver-2.sh text eol=lf
 build-dbserver.sh text eol=lf
 build-pdfserver.sh text eol=lf
 setup-database.sql text eol=lf
 website.conf text eol=lf
 conv/makeSheet.pl eol=lf
+apache2.conf eol=lf

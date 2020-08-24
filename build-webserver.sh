@@ -5,6 +5,9 @@ apt-get install -y apache2 php libapache2-mod-php php-mysql
 # (Look inside test-website.conf for specifics.)
 cp /vagrant/website.conf /etc/apache2/sites-available/
 
+# Change apache config to change user from www-data to vagrant
+cp /vagrant/apache2.conf /etc/apache2/apache2.conf
+
 # activate our website configuration ...
 a2ensite website
 

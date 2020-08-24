@@ -78,10 +78,9 @@
                 echo $_GET['time']." ".$_GET['date']." ".$_GET['from']." is [enter new time and date here] ".$_GET['to'];
 
                 echo "<br>";
-                echo $old_time." ".$new_time;
+                echo $old_time." ".$new_time."\n";
 
-                //$server = "192.168.2.13";
-
+                echo shell_exec("ssh -i /home/vagrant/.ssh/pdf_private_key vagrant@192.168.2.13 'cd /vagrant/conv/; perl makeSheet.pl; unoconv -f pdf conversions.xls'");
             }
         ?>
     </body>
