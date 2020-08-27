@@ -1,5 +1,5 @@
 .vagrant
 ubuntu-xenial-16.04-cloudimg-console.log
-conv/*
-!conv/makeSheet.pl
-www/.ssh
+www/conversions.pdf
+conv/conversions.xls
+conv/conversions.pdf

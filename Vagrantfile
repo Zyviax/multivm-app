@@ -7,7 +7,6 @@
 # Sets vagrant version.
 Vagrant.configure("2") do |config|
 
-  
   # Sets up database server VM.
   config.vm.define "dbserver" do |dbserver|
     dbserver.vm.hostname = "dbserver"
@@ -63,4 +62,9 @@ Vagrant.configure("2") do |config|
     webserver.vm.provision "shell", path: "build-webserver-2.sh", privileged: false
   end
 
+  config.trigger.before :destroy do |trigger|
+    trigger.run_remote = {inline: "rm /vagrant/conv/conversions.xls; rm /vagrant/conv/conversions.pdf; rm /vagrant/www/conversions.pdf"}
+    trigger.on_error = :continue
+  end
+  
 end
