@@ -79,12 +79,12 @@
 
         <h2>Current Timezone Conversions</h2>
         <table id="conversions">
-            <tr><th>Code</th><th>Name</th><th>Offset</th><th>Offset value (minutes)</th></tr>
+            <tr><th>Code</th><th>Name</th><th>Offset</th></tr>
             <?php
                 $q = $pdo->query("SELECT * FROM locations");
 
                 while($row = $q->fetch()) {
-                    echo "<tr><td>".$row["code"]."</td><td>".$row["name"]."</td><td>".$row["offset"]."</td><td>".$row["offset_val"]."</td></tr>\n";
+                    echo "<tr><td>".$row["code"]."</td><td>".$row["name"]."</td><td>".$row["offset"]."</td></tr>\n";
                 }
             ?>
         </table>
