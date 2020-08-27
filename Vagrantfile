@@ -60,11 +60,13 @@ Vagrant.configure("2") do |config|
     # Provisisions the VM on startup.
     webserver.vm.provision "shell", path: "build-webserver.sh"
     webserver.vm.provision "shell", path: "build-webserver-2.sh", privileged: false
+
+    # Trigger to delete unimportant files.
+    webserver.trigger.before :destroy do |trigger|
+      trigger.run_remote = {inline: "rm /vagrant/conv/conversions.xls; rm /vagrant/conv/conversions.pdf; rm /vagrant/www/conversions.pdf"}
+      trigger.on_error = :continue
+    end
+
   end
 
-  config.trigger.before :destroy do |trigger|
-    trigger.run_remote = {inline: "rm /vagrant/conv/conversions.xls; rm /vagrant/conv/conversions.pdf; rm /vagrant/www/conversions.pdf"}
-    trigger.on_error = :continue
-  end
-  
 end
