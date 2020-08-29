@@ -63,7 +63,7 @@ Vagrant.configure("2") do |config|
 
     # Trigger to delete unimportant files.
     webserver.trigger.before :destroy do |trigger|
-      trigger.run_remote = {inline: "rm /vagrant/conv/conversions.xls; rm /vagrant/conv/conversions.pdf; rm /vagrant/www/conversions.pdf"}
+      trigger.run_remote = {inline: "rm -rf /vagrant/www/conversions"}
       trigger.on_error = :continue
     end
 

@@ -2,7 +2,8 @@
 use Spreadsheet::WriteExcel;
 use DBI;
 
-my $workbook = Spreadsheet::WriteExcel->new('conversions.xls');
+$name = "@ARGV[0]to@ARGV[1].xls";
+my $workbook = Spreadsheet::WriteExcel->new($name);
 $worksheet = $workbook->add_worksheet();
 $worksheet->set_column('A:B', 30);
 

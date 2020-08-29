@@ -84,7 +84,7 @@
                     shell_exec($command);
 
                     // displays a link to a pdf file created from the running the above command
-                    echo "<br><a href='conversions.pdf'>View Conversion table (pdf)</a>";
+                    echo "<br><a href=\"conversions/".$_GET['from']."to".$_GET['to'].".pdf\">View Conversion table (pdf)</a>";
                     echo "<p id=\"aside\">Note that times may not be correct due to daylight savings observed in certain regions.</p>";
                 }
             ?>

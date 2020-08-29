@@ -1,6 +1,7 @@
 .vagrant
 ubuntu-xenial-16.04-cloudimg-console.log
-www/conversions.pdf
-conv/conversions.xls
-conv/conversions.pdf
+www/conversions
+conv
+!conv/makeSheet.pl
+!conv/run-files.sh
 report
