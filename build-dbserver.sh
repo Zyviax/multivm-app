@@ -17,11 +17,10 @@ echo "mysql-server mysql-server/root_password_again password $MYSQL_PWD" | debco
 # Install the MySQL database server.
 apt-get -y install mysql-server
 
-# Run some setup commands to get the database ready to use.
-# First create a database.
+# Initialize database
 echo "CREATE DATABASE timezones;" | mysql
 
-# Then create a database user "webuser" with the given password.
+# Create 'webuser' and assign a password
 echo "CREATE USER 'webuser'@'%' IDENTIFIED BY 'insecure_db_pw';" | mysql
 
 # Grant all permissions to the database user "webuser" regarding
