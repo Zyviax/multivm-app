@@ -35,12 +35,24 @@ $statement = $connection->prepare("SELECT offset_val FROM locations WHERE code =
 $statement->execute();
 $new_time_val = $statement->fetchrow_array;
 
-$hours_diff = ($new_time_val - $old_time_val) / 60;
+$hours_diff = int(($new_time_val - $old_time_val) / 60);
+$mins_diff = ($new_time_val - $old_time_val) % 60;
+if ($mins_diff ne 0 && $hours_diff < 0) {
+    $hours_diff = $hours_diff -1;
+}
 
-if ($new_time_val > $old_time_val) {
-    $append = "";
+if ($hours_diff >= 0) {
+    if ($hours_diff < 24) {
+        $append = "";
+    } else {
+        $append = "- the next day";
+    }
 } else {
-    $append = " the previous day";
+    if ($hours_diff > -24) {
+        $append = "- the previous day";
+    } else {
+        $append = "- two days behind";
+    }
 }
 
 $worksheet->write(B1, @ARGV[1]);
@@ -48,16 +60,16 @@ for(@a) {
     $i = $_+2;
     $coord = "B$i";
     $val = ($_+$hours_diff)%24;
-    if ($val < 10) {
-        $worksheet->write($coord, "0$val:00$append");
-    } else {
-        $worksheet->write($coord, "$val:00$append");
-    }
+    $worksheet->write($coord, sprintf("%02d:%02d %s", $val, $mins_diff, $append));
     if ($val == 23) {
-        if ($append eq "") {
-            $append = " the next day";
-        } elsif ($append eq " the previous day") {
+        if ($append eq "- two days behind") {
+            $append = "- the previous day";
+        } elsif ($append eq "- the previous day") {
             $append = "";
+        } elsif ($append eq "") {
+            $append = "- the next day";
+        } elsif ($append eq "- the next day") {
+            $append = "- two days ahead";
         }
     }
 }

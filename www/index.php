@@ -23,8 +23,10 @@
         <h2>Timezone Conversion Form</h2>
         <form action="/index.php">
         <label for="convert">Select time to convert: </label>
-        <input type="time" id="time" name="time" pattern="[0-9]{2}:[0-9]{2}" required value=<?php echo $_GET['time']?>>
-        <input type="date" id="date" name="date" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" required value=<?php echo $_GET['date']?>>
+        <input type="time" id="time" name="time" oninvalid="this.setCustomValidity('Please match the 24-hour time format: [HH:MM]')" 
+        onchange="try{setCustomValidity('')}catch(e){}" oninput="setCustomValidity('')" pattern="[0-9]{2}:[0-9]{2}" required value=<?php echo $_GET['time']?>>
+        <input type="date" id="date" name="date" oninvalid="this.setCustomValidity('Please match the date format: [YYYY-MM-DD]')" 
+        onchange="try{setCustomValidity('')}catch(e){}" oninput="setCustomValidity('')" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" required value=<?php echo $_GET['date']?>>
         <select id="from" name="from">
             <option value="<?php echo $_GET['from']?>" selected hidden><?php echo $_GET['from']?></option>
             <?php
@@ -46,7 +48,7 @@
         </select>
         <input type="submit">
         </form>
-        <div id="test">
+        <div id="phpout">
             <?php
                 if (!is_null($_GET['from'])) {
                     $from = $_GET['from'] ?: 'GMT';
@@ -73,6 +75,7 @@
                     shell_exec($command);
 
                     echo "<br><a href='conversions.pdf'>View Conversion table (pdf)</a>";
+                    echo "<p id=\"aside\">Note that times may not be correct due to daylight savings observed in certain regions.</p>";
                 }
             ?>
         </div>

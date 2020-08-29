@@ -1,9 +1,18 @@
+html {
+    background-color: rgb(37, 37, 38);
+}
+
+input, select {
+    background-color: rgb(51, 51, 51);
+}
+
 html * {
     font-size: 17px;
     margin-left: auto;
     margin-right: auto;
     width: 1200px;
     text-align: center;
+    color: rgb(204, 204, 204);
 }
 
 h1 > a {
@@ -28,7 +37,7 @@ select, input {
     height: 2em;
 }
 
-#test * {
+#phpout * {
     font-size: 18px;
 }
 
@@ -38,4 +47,9 @@ select, input {
 
 #output {
     width: 600px;
+}
+
+#aside {
+    font-size: 17px;
+    font-style: italic;
 }
