@@ -2,19 +2,14 @@
 use Spreadsheet::WriteExcel;
 use DBI;
 
+# Sets up spreadsheet data
 $name = "@ARGV[0]to@ARGV[1].xls";
 my $workbook = Spreadsheet::WriteExcel->new($name);
 $worksheet = $workbook->add_worksheet();
 $worksheet->set_column('A:B', 30);
-
-@a = (0..23);
-
-$worksheet->write(A1, @ARGV[0]);
-# Fills first column with times at hour intervals from 00:00 to 23:00
+@a = (0..24);
 for(@a) {
-    $i = $_+2;
-    $coord = "A$i";
-    $worksheet->write($coord, sprintf("%02d:00", $val));
+    $worksheet->set_row($_, 15);
 }
 
 # Sets up connection with mysql database
@@ -24,7 +19,22 @@ $db_user   = 'webuser';
 $db_passwd = 'insecure_db_pw';
 $connection = DBI->connect("DBI:mysql:$db_name:$db_host", $db_user, $db_passwd);
 
-# Finds the offset value from the database
+@a = (0..23);
+
+# Finds the old offset from the database
+$statement = $connection->prepare("SELECT offset FROM locations WHERE code = '@ARGV[0]'");
+$statement->execute();
+$old_offset = $statement->fetchrow_array;
+
+$worksheet->write(A1, "@ARGV[0] $old_offset");
+# Fills first column with times at hour intervals from 00:00 to 23:00
+for(@a) {
+    $i = $_+2;
+    $coord = "A$i";
+    $worksheet->write($coord, sprintf("%02d:00", $_));
+}
+
+# Finds the offset values from the database
 $statement = $connection->prepare("SELECT offset_val FROM locations WHERE code = '@ARGV[0]'");
 $statement->execute();
 $old_time_val = $statement->fetchrow_array;
@@ -57,7 +67,12 @@ if ($hours_diff >= 0) {
     }
 }
 
-$worksheet->write(B1, @ARGV[1]);
+# Finds the new offset from the database
+$statement = $connection->prepare("SELECT offset FROM locations WHERE code = '@ARGV[1]'");
+$statement->execute();
+$new_offset = $statement->fetchrow_array;
+
+$worksheet->write(B1, "@ARGV[1] $new_offset");
 # Fills the second column with converted times
 for(@a) {
     $i = $_+2;

@@ -83,9 +83,12 @@
                     $command = "ssh -i /home/vagrant/.ssh/pdf_private_key vagrant@192.168.2.13 'cd /vagrant/conv/; ./run-files.sh ".$_GET['from']." ".$_GET['to']."'";
                     shell_exec($command);
 
-                    // displays a link to a pdf file created from the running the above command
-                    echo "<br><a href=\"conversions/".$_GET['from']."to".$_GET['to'].".pdf\">View Conversion table (pdf)</a>";
                     echo "<p id=\"aside\">Note that times may not be correct due to daylight savings observed in certain regions.</p>";
+
+                    // displays a pdf file created from the running the above command and a link to it.
+                    echo "<object data=\"conversions/".$_GET['from']."to".$_GET['to'].".pdf\" type=\"application/pdf\" width=\"100%\" height=\"100%\">";
+                    echo "</object>";
+                    echo "<br><a href=\"conversions/".$_GET['from']."to".$_GET['to'].".pdf\">Open Conversion Table</a>";
                 }
             ?>
         </div>
