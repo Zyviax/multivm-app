@@ -60,7 +60,7 @@ if ($hours_diff >= 0) {
         $append = "- the next day";
     }
 } else {
-    if ($hours_diff > -24) {
+    if ($hours_diff >= -24) {
         $append = "- the previous day";
     } else {
         $append = "- two days behind";
