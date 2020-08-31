@@ -13,10 +13,9 @@ A basic timezone converter using a webpage as a form for users. Currently there 
 ## Build the application:
 - Change into the directory ```cd multivm-app```
 - Start application ```vagrant up```
-  - This may take a few minutes depending if you already have the Vagrant box files or not.
 
 ## Use the application:
-- To use application go to http://localhost:8080
+- To use the application go to http://localhost:8080
 - Fill the form: selecting time, date, and the timezones.
   - It will then show the time and date in the converted timezone.
   - It will also generate a table of time conversions in a pdf.
@@ -39,3 +38,7 @@ The following examples are the output pages of using web form.
   - Resulting page: http://localhost:8080/index.php?time=23%3A59&date=2020-08-31&from=NZST&to=AoE
   - Pdf generated: http://localhost:8080/conversions/NZSTtoAoE.pdf
   
+## Other Information:
+- The main webpage is located at [www/index.php](www/index.php)
+- Currently the database used is entirely generated using [setup-database.sql](setup-database.sql)
+- Scripts and programs related to pdf generation are located at [conv](conv)
